@@ -21,7 +21,6 @@
                 [-73.2, -36.9], // Southwest coordinates (más al oeste y sur)
                 [-73.0, -36.7]  // Northeast coordinates (más al este y norte)
             ]
-
              */
         });
 
