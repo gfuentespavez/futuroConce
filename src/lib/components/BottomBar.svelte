@@ -9,7 +9,7 @@
         ranking = countAnnotationsByComuna($annotations);
     }
 
-    $: top5 = ranking.filter(c => c.count > 0).slice(0, 5);
+    $: top3 = ranking.filter(c => c.count > 0).slice(0, 3);
     $: comunasActivas = ranking.filter(c => c.count > 0).length;
 
     // Contador por categoría
@@ -58,20 +58,21 @@
         </div>
     </div>
 
-    {#if top5.length > 0}
+    {#if top3.length > 0}
         <div class="divider-vertical"></div>
 
         <!-- Ranking Section -->
         <div class="ranking-section">
             <div class="section-title">
-                <span>Top Comunas</span>
+                <span>Comunas con más comentarios</span>
             </div>
-            <div class="ranking-list">
-                {#each top5 as { nombre, count }, index}
-                    <div class="ranking-item" class:first={index === 0} class:second={index === 1} class:third={index === 2}>
-                        <span class="position">{index + 1}</span>
-                        <span class="name">{nombre}</span>
-                        <span class="count">{count}</span>
+            <div class="ranking-grid">
+                {#each top3 as { nombre, count }, index}
+                    <div class="ranking-card" class:gold={index === 0} class:silver={index === 1} class:bronze={index === 2}>
+                        <div class="rank-badge">{count}</div>
+                        <div class="rank-content">
+                            <span class="rank-name">{nombre}</span>
+                        </div>
                     </div>
                 {/each}
             </div>
@@ -85,8 +86,8 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(44, 44, 44, 0.85);
-        backdrop-filter: blur(12px);
+        background: rgba(44, 44, 44, 0.15);
+        backdrop-filter: blur(20px);
         border-top: 2px solid rgba(247, 55, 79, 0.3);
         z-index: 100;
         box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
@@ -185,7 +186,7 @@
         color: rgba(249, 248, 246, 0.6);
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
 
     /* Categories Section */
@@ -241,98 +242,141 @@
     }
 
     /* Ranking Section */
+    /* Ranking Section - MEJORADO */
     .ranking-section {
         display: flex;
         flex-direction: column;
         flex: 1;
         min-width: 0;
+        padding: 8px 16px;
     }
 
-    .ranking-list {
+    .ranking-grid {
         display: flex;
-        gap: 12px;
+        gap: 10px;
         overflow-x: auto;
         padding-bottom: 4px;
     }
 
-    .ranking-list::-webkit-scrollbar {
-        height: 4px;
+    .ranking-grid::-webkit-scrollbar {
+        height: 3px;
     }
 
-    .ranking-list::-webkit-scrollbar-track {
-        background: rgba(82, 37, 70, 0.3);
+    .ranking-grid::-webkit-scrollbar-track {
+        background: rgba(82, 37, 70, 0.2);
         border-radius: 2px;
     }
 
-    .ranking-list::-webkit-scrollbar-thumb {
+    .ranking-grid::-webkit-scrollbar-thumb {
         background: #F7374F;
         border-radius: 2px;
     }
 
-    .ranking-item {
+    .ranking-card {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px 14px;
-        background: rgba(82, 37, 70, 0.4);
-        border-radius: 8px;
+        padding: 8px 12px;
+        background: rgba(82, 37, 70, 0.25);
+        border: 1px solid rgba(136, 48, 78, 0.3);
+        border-radius: 18px;
         white-space: nowrap;
         min-width: 140px;
-        border: 1px solid rgba(136, 48, 78, 0.5);
-        transition: all 0.2s;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: visible; /* Cambiar de hidden a visible */
     }
 
-    .ranking-item:hover {
-        transform: translateY(-2px);
-        background: rgba(82, 37, 70, 0.6);
-        border-color: rgba(247, 55, 79, 0.6);
+    .ranking-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(247, 55, 79, 0.2), transparent);
+        transition: width 0.3s ease;
     }
 
-    .ranking-item.first {
-        background: linear-gradient(135deg, rgba(247, 55, 79, 0.5) 0%, rgba(136, 48, 78, 0.5) 100%);
-        border-color: rgba(247, 55, 79, 0.7);
-        box-shadow: 0 0 12px rgba(247, 55, 79, 0.3);
+    .ranking-card.gold {
+        background: linear-gradient(135deg, rgba(247, 55, 79, 0.4) 0%, rgba(136, 48, 78, 0.3) 100%);
+        border-color: #F7374F;
+        box-shadow: 0 0 15px rgba(247, 55, 79, 0.4);
     }
 
-    .ranking-item.second {
-        background: rgba(136, 48, 78, 0.4);
-        border-color: rgba(136, 48, 78, 0.7);
+    .ranking-card.silver {
+        background: linear-gradient(135deg, rgba(136, 48, 78, 0.35) 0%, rgba(82, 37, 70, 0.3) 100%);
+        border-color: #88304E;
     }
 
-    .ranking-item.third {
-        background: rgba(82, 37, 70, 0.5);
-        border-color: rgba(82, 37, 70, 0.7);
+    .ranking-card.bronze {
+        background: linear-gradient(135deg, rgba(82, 37, 70, 0.4) 0%, rgba(44, 44, 44, 0.3) 100%);
+        border-color: #522546;
     }
 
-    .position {
+    .rank-badge {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(249, 248, 246, 0.1);
+        border: 2px solid rgba(249, 248, 246, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-weight: 700;
-        font-size: 18px;
-        color: rgba(249, 248, 246, 0.5);
-        min-width: 22px;
-        text-align: center;
+        font-size: 16px;
+        color: rgba(249, 248, 246, 0.6);
+        flex-shrink: 0;
     }
 
-    .ranking-item.first .position,
-    .ranking-item.second .position,
-    .ranking-item.third .position {
-        color: #F7374F;
+    .ranking-card.gold .rank-badge {
+        background: #F7374F;
+        border-color: #F7374F;
+        color: #F9F8F6;
+        box-shadow: 0 0 8px rgba(247, 55, 79, 0.4) inset, 0 0 4px rgba(247, 55, 79, 0.3); /* Reducir glow */
     }
 
-    .name {
+    .ranking-card.silver .rank-badge {
+        background: #88304E;
+        border-color: #88304E;
+        color: #F9F8F6;
+        box-shadow: none; /* Sin glow */
+    }
+
+    .ranking-card.bronze .rank-badge {
+        background: #522546;
+        border-color: #522546;
+        color: #F9F8F6;
+        box-shadow: none; /* Sin glow */
+    }
+
+    .rank-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .rank-name {
         font-size: 14px;
         color: #F9F8F6;
         font-weight: 600;
-        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
-    .count {
-        font-weight: 700;
-        font-size: 16px;
+    .rank-count {
+        font-size: 11px;
+        color: rgba(249, 248, 246, 0.6);
+        font-weight: 500;
+    }
+
+    .ranking-card.gold .rank-count,
+    .ranking-card.silver .rank-count,
+    .ranking-card.bronze .rank-count {
         color: #F7374F;
-        background: rgba(249, 248, 246, 0.1);
-        padding: 2px 10px;
-        border-radius: 12px;
-        border: 1px solid rgba(247, 55, 79, 0.3);
+        font-weight: 700;
     }
 
     /* Tablet adjustments */
