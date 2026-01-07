@@ -17,10 +17,12 @@
             style: 'mapbox://styles/mapbox/dark-v11',
             center: [-73.11064, -36.81024], // <-- Centro actualizado
             zoom: 9, // <-- Ajusté el zoom para que se vea bien la zona
-            maxBounds: [ // <-- Límites del mapa
+            /*maxBounds: [ // <-- Límites del mapa
                 [-73.2, -36.9], // Southwest coordinates (más al oeste y sur)
                 [-73.0, -36.7]  // Northeast coordinates (más al este y norte)
             ]
+
+             */
         });
 
         map.addControl(
