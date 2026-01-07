@@ -29,11 +29,17 @@
                 }
             ]);
 
-        if (!error) {
-            close();
-        }
-
         saving = false;
+
+        if (!error) {
+            // Forzar recarga inmediata esperando un momento para que Supabase procese
+            setTimeout(() => {
+                window.dispatchEvent(new CustomEvent('refresh-map'));
+            }, 200);
+            close();
+        } else {
+            console.error('Error guardando anotación:', error);
+        }
     }
 </script>
 
