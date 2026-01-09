@@ -330,8 +330,8 @@
     }
 
     .ranking-card.gold .rank-badge {
-        background: #F7374F;
-        border-color: #F7374F;
+        background: #FFCC05;
+        border-color: #ffcc05;
         color: #F9F8F6;
         box-shadow: 0 0 8px rgba(247, 55, 79, 0.4) inset, 0 0 4px rgba(247, 55, 79, 0.3); /* Reducir glow */
     }

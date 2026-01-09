@@ -14,8 +14,7 @@
 
         map = new mapboxgl.Map({
             container: mapContainer,
-            //style: 'mapbox://styles/germanfuentes/cm5ntodss00fi01qp7gixa1ch', // <-- Aquí cambias el estilo
-            style: 'mapbox://styles/mapbox/dark-v11',
+            style: 'mapbox://styles/germanfuentes/cm5ntodss00fi01qp7gixa1ch', // <-- Aquí cambias el estilo
             center: [-73.11064, -36.81024], // <-- Centro actualizado
             zoom: 12,
             /*maxBounds: [ // <-- Límites del mapa
