@@ -178,7 +178,7 @@
             paint: {
                 'circle-radius': 6,
                 'circle-color': '#f5c542',
-                'circle-stroke-width': 3,
+                'circle-stroke-width': 2,
                 'circle-stroke-color': '#ffffff'
             }
         });
