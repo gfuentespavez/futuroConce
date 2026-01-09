@@ -129,23 +129,6 @@
 
     .logo img {
         height: 50px;
-        border-radius: 8px;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    }
-
-    .loading-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(10, 10, 10, 0.9);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        color: #ffffff;
     }
 
     .spinner {
