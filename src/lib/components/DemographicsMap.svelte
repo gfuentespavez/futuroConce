@@ -39,7 +39,7 @@
 
         map = new mapboxgl.Map({
             container: mapContainer,
-            style: 'mapbox://styles/germanfuentes/cm5ntodss00fi01qp7gixa1ch',
+            style: 'mapbox://styles/mapbox/navigation-night-v1',
             center: [-73.05, -36.82], // Concepción
             zoom: 13,
             antialias: true
